@@ -67,7 +67,7 @@ returns basic HTTP requests. You can of course build/deploy your own server (and
 that is an excellent exercise), but for our purposes here we'll consider some of
 the many excellent free/cheap services that do this for you.
 
-### GitHub Pages
+### Start Simple - GitHub Pages
 [GitHub Pages](https://pages.github.com) are a great way to get started, and
 actually still a strong choice as you scale up. It's a free service, but can
 handle substantial traffic, supports custom URLs/domains, and gives SSL. The
@@ -85,4 +85,38 @@ save that to your `master` branch and save the built output to `gh-pages`).
 
 This particular repository is using the first approach, so you can read this
 very file from [https://lambdaschool.github.io/Static-Pages/](https://lambdaschool.github.io/Static-Pages/)
-(if you're not already).
+(if you're not already). Note that if you do this you will not see the true
+Markdown source - instead, it will be rendered to HTML by Jekyll (mentioned
+earlier). You can even apply themes and generally maintain a simple webpage on
+GitHub without writing a line of HTML - read
+[their Jekyll documentation](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/)
+for more details.
+
+The deploy process is as simple as a `git push` of your content to the correct
+branch or folder. There exist packages to script/automate this, and you can
+write your own fairly easily. Also note that most GitHub competitors have
+similar services
+([Bitbucket](https://confluence.atlassian.com/bitbucket/publishing-a-website-on-bitbucket-cloud-221449776.html),
+[GitLab](https://about.gitlab.com/features/pages/), etc.). Configuring these
+services is a matter of reading their documentation and browsing their setting
+pages, but for the most part things like custom domains and SSL certificates
+should be straightforward or possibly automatic.
+
+### Dedicated Hosts - Netlify, Surge, Forge
+If you want a service that just hosts pages, and doesn't offer it as a simple
+"add-on" for source code hosting, there are plenty of options. The focus here is
+services meant for coders - so you can interact with them and push content to
+them from the command line. In principle, any web host that lets you upload
+content could be considered, but will be harder to automate and generally teach
+you less than using one of these options.
+
+- [Netlify](https://www.netlify.com/) - 
+- [surge](http://surge.sh/) - 
+- [Forge](https://getforge.com/) -
+
+There are other options, and these three may grow or disappear as the web
+continues to evolve. But there will likely always be options along these lines,
+and when you're making static content it's pretty easy to switch hosts - just
+push your content somewhere else!
+
+### Big Players - Amazon, Google, Microsoft

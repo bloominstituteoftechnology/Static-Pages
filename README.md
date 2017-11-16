@@ -84,5 +84,5 @@ save that to your `master` branch and save the built output to `gh-pages`).
 (e.g. tools, games, etc.) where you want to serve the documentation as a page.
 
 This particular repository is using the first approach, so you can read this
-very file from [https://lambdaschool.github.io/static-pages/](https://lambdaschool.github.io/static-pages/)
+very file from [https://lambdaschool.github.io/Static-Pages/](https://lambdaschool.github.io/Static-Pages/)
 (if you're not already).

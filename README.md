@@ -8,7 +8,8 @@ benefits and limitations of this:
 
 - *Can* host freely/cheaply at a bunch of places, deploy and switch hosts
 easily.
-- *Can* 
+- *Can* be built with a variety of tools and play nicely with almost any
+language/framework/ecosystem.
 - *Can't* persist user data across sessions/devices (or need to rely on external
 service to do so).
 - *Can't* use a secret API key to connect to a service - anyone who loads the
@@ -159,8 +160,8 @@ also uses "buckets", and also integrates with their
 [CDN](https://cloud.google.com/cdn/). Basically the Coke/Pepsi decision, and
 ultimately a decision that will be made for reasons besides static content.
 - [Azure Static Content Hosting](https://docs.microsoft.com/en-us/azure/architecture/patterns/static-content-hosting) -
-yes, Microsoft too has a cloud, though theirs calls static content containers
-"blobs" rather than "buckets." They even have a
+yes, Microsoft too has a cloud, though they use "blobs" rather than "buckets."
+They even have a
 [CDN](https://docs.microsoft.com/en-us/azure/cdn/cdn-cloud-service-with-cdn),
 and other services more or less comparable to Amazon and Google. They are a less
 popular choice for a variety of practical and historical reasons, but some
@@ -172,4 +173,59 @@ concept though is the same - you just want to push some built static content to
 some path on the server that will be served via a webserver at some domain.
 
 ## Closing Notes and "Gotchas"
-HTTP/HTTPS API crossing issues
+Now you know the basics on what a static page is and how to get it out there -
+actually having static content worth putting out there is another matter. Lots
+of prominent developers maintain blogs (often built and hosted with the above
+tools/services), and getting in the habit of writing your thoughts and
+experiences with technology can help you organize and develop as well as market
+yourself.
+
+Some examples of high quality tech blogs for inspiration:
+
+- [Slack Engineering Blog](https://slack.engineering/) - gives great
+transparency and real technical details for what's going on at Slack. Simple but
+pleasing and highly readable design, and good quality writing (clearly it's a
+team effort, and they likely review each others posts before publishing).
+- [CSS-Tricks](https://css-tricks.com/) - great current front-end and design
+content, and as one would expect - very pleasing design.
+- [Smashing Magazine](https://www.smashingmagazine.com/) - more for developers
+and designers, and also a good example of a blog incorporated into a larger
+site.
+- [Beej's Bit Bucket](https://beej.us/blog/) - simple, readable, fast.
+
+Another typical use of static pages is for resumes - there are
+[tools specific for building them](https://github.com/salomonelli/best-resume-ever),
+and [lots](http://www.rleonardi.com/interactive-resume/)
+[of](https://magemello.github.io/) [crazy](http://liugle.com)
+[cool](http://www.anniwang.com) [examples](https://phildub.com)
+[out](http://www.kickjannic.com) [there](http://www.guillaumejuvenet.com).
+
+
+Besides what content to put out there, you're likely to run into issues as you
+get started, especially if you're doing something fancy like hitting an API. In
+particular, if your page is hosted by a service that uses HTTPS and you try to
+pull data from an API that uses HTTP (or vice-versa), it probably won't work. If
+you open up your browser debugger console you should see something like:
+
+```
+Mixed Content: The page at 'https://tsj7.github.io/YouTube-Clone/' was loaded
+over HTTPS, but requested an insecure resource 'http://www.youtube.com/embed/-40p_dZccPg'.
+This request has been blocked; the content must be served over HTTPS.
+```
+
+Basically, "don't cross the streams!" Ideally you should use HTTPS for both, it
+is the default for GitHub Pages and most other hosting services linked above.
+[Heroku](https://heroku.com) (another hosting service you may use for backends)
+also supports them, and most modern well-maintained APIs should as well. So the
+first thing to try if you hit this is to change whatever is HTTP to HTTPS and
+see if it works.
+
+If it doesn't, and you really need to use it, then (at least for prototyping)
+you can figure out disabling HTTPS for the other side. For GitHub Pages this is
+accessible under the settings for the repository.
+
+Other "gotchas" you may hit - with `git` based deployment, make sure you have
+the upstream repo set appropriately. `git remote -v` will verbosely list the
+remotes that git knows about, and can help debugging. And in general, proper git
+hygiene (regular commits with good messages, clearly named branches, etc.) will
+pay off, just as it does with regular development.

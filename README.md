@@ -11,7 +11,9 @@ easily.
 - *Can* be built with a variety of tools and play nicely with almost any
 language/framework/ecosystem.
 - *Can't* persist user data across sessions/devices (or need to rely on external
-service to do so).
+service to do so, or can do
+[localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+but that won't go across devices and the user may wipe it).
 - *Can't* use a secret API key to connect to a service - anyone who loads the
 page could extract the key and abuse the service (and get your access
 suspended). Can still connect to unauthenticated APIs.

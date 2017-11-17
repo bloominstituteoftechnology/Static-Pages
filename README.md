@@ -6,10 +6,14 @@ Any webpage where all the content (HTML, JavaScript, CSS, images) is loaded in
 and rendered by the user's browser ("front-end"). There are some important
 benefits and limitations of this:
 
-- *Can* host freely/cheaply at a bunch of places, deploy and switch hosts easily
+- *Can* host freely/cheaply at a bunch of places, deploy and switch hosts
+easily.
 - *Can* 
-- *Can't* persist user data across sessions/devices (or need to rely on external service to do so)
-- *Can't*
+- *Can't* persist user data across sessions/devices (or need to rely on external
+service to do so).
+- *Can't* use a secret API key to connect to a service - anyone who loads the
+page could extract the key and abuse the service (and get your access
+suspended). Can still connect to unauthenticated APIs.
 
 Static just means "unchanging", and overall that's what static webpages are good
 for - content that doesn't change. However, front-end frameworks like
@@ -29,7 +33,7 @@ reinforce your knowledge on the basics (which helps with everything else).
 
 For more substantial and/or frequently updated pages, it's a good idea to use a
 static site generator - a tool that renders all the actual HTML/JS/CSS based on
-templates, parameters, and usually
+templates, configuration settings, and usually
 [Markdown](https://daringfireball.net/projects/markdown) files for the actual
 content. There is an absurd number of these generators, you can
 [check out popular ones here](https://www.staticgen.com).
@@ -97,22 +101,32 @@ branch or folder. There exist packages to script/automate this, and you can
 write your own fairly easily. Also note that most GitHub competitors have
 similar services
 ([Bitbucket](https://confluence.atlassian.com/bitbucket/publishing-a-website-on-bitbucket-cloud-221449776.html),
-[GitLab](https://about.gitlab.com/features/pages/), etc.). Configuring these
-services is a matter of reading their documentation and browsing their setting
-pages, but for the most part things like custom domains and SSL certificates
-should be straightforward or possibly automatic.
+[GitLab](https://about.gitlab.com/features/pages/), etc.), and this competition
+helps prevent lock-in (you can pretty easily move your content between them).
+Configuring these services is a matter of reading their documentation and
+browsing their setting pages, but for the most part things like custom domains
+and SSL certificates should be straightforward or possibly automatic.
 
 ### Dedicated Hosts - Netlify, Surge, Forge
 If you want a service that just hosts pages, and doesn't offer it as a simple
 "add-on" for source code hosting, there are plenty of options. The focus here is
 services meant for coders - so you can interact with them and push content to
-them from the command line. In principle, any web host that lets you upload
-content could be considered, but will be harder to automate and generally teach
-you less than using one of these options.
+them from the command line. Any web host that lets you upload content can work,
+but will be harder to automate and generally teach you less than using one of
+these options.
 
-- [Netlify](https://www.netlify.com/) - 
-- [surge](http://surge.sh/) - 
-- [Forge](https://getforge.com/) -
+- [Netlify](https://www.netlify.com/) - generous free tier, can connect to
+GitHub repositories, handle forms, facilitate A/B testing, continuous
+deployment, and more. Paid service is mostly for multiuser/enterprise.
+- [surge](http://surge.sh/) - similar to Netlify, good free tier, somewhat
+fewer options but if you don't intend to use them that may be a good thing.
+- [Forge](https://getforge.com/) - not free (but cheap to start), emphasis on
+speed and simplicity (optimized CDN and JS processing, cli for programmers but
+also supports just dragging/dropping files or connecting Dropbox for others).
+
+To actually use these services, just follow the tutorial/guide they offer - the
+general pattern is "install something (probably from npm), then run it." Try a
+few and see which one you like/works for your use case.
 
 There are other options, and these three may grow or disappear as the web
 continues to evolve. But there will likely always be options along these lines,
@@ -120,3 +134,42 @@ and when you're making static content it's pretty easy to switch hosts - just
 push your content somewhere else!
 
 ### Big Players - Amazon, Google, Microsoft
+If you're making something Real - it's got to scale, it's got to load fast
+around the globe, and if it goes down pagers need to ring - then these are some
+options to consider. The line between the above simpler approaches and these
+"industry-grade" services isn't clear - especially if you go with a paid tier
+for the above services, you can definitely use it for something important. And
+even the free tiers are pretty reliable, but ultimately any free service doesn't
+provide the same sort of
+[SLA](https://en.wikipedia.org/wiki/Service-level_agreement) as a paid one.
+
+The other big reason to go with one of these is if you're using them anyway -
+each of these providers offers a slew of "cloud" services, and if you're using
+them for other things you may as well fire up their static file hosting.
+Compared to most of their other services, it's a fairly simple thing to do, and
+definitely scales great without costing too much.
+
+- [Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html) -
+gives you "buckets" in different regions where you can upload your content. You
+may have to configure to make sure you've got good global coverage. Can be
+integrated with [CloudFront](https://aws.amazon.com/cloudfront/), the AWS CDN,
+to get even better performance around the world.
+- [Google Cloud Storage](https://cloud.google.com/storage/docs/hosting-static-website) -
+also uses "buckets", and also integrates with their
+[CDN](https://cloud.google.com/cdn/). Basically the Coke/Pepsi decision, and
+ultimately a decision that will be made for reasons besides static content.
+- [Azure Static Content Hosting](https://docs.microsoft.com/en-us/azure/architecture/patterns/static-content-hosting) -
+yes, Microsoft too has a cloud, though theirs calls static content containers
+"blobs" rather than "buckets." They even have a
+[CDN](https://docs.microsoft.com/en-us/azure/cdn/cdn-cloud-service-with-cdn),
+and other services more or less comparable to Amazon and Google. They are a less
+popular choice for a variety of practical and historical reasons, but some
+clients will use them and they do offer generous free credits to a lot of users.
+
+How do you use these services? Read the documentation - it'll change fast, and
+generally involve lots of platform-specific settings and commands. The general
+concept though is the same - you just want to push some built static content to
+some path on the server that will be served via a webserver at some domain.
+
+## Closing Notes and "Gotchas"
+HTTP/HTTPS API crossing issues
